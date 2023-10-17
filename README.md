@@ -11,9 +11,12 @@ In input.txt, the user is prompted to configure five lists:
 **Sample Outputs**: The expected outputs of the sample inputs being passed into the function. More specifically, if the list at index i of the sample input array is passed into the function, then the value at index i of the sample output array must be yielded by the synthesized function.
 
 **Int Literals** (applicable within all DSL's): The list of base ints that will be fed into the program. Performs the following functions within each DSL:
+
 	* Arithmetic: Fed as a base value into the list of functions, and will thus be applied with equal weights as the inputs themselves - for instance, if we pass an int literal 1 into the Add operation, our first round of generation will yield Add(1,1) (alongside Add(Input_1, 1) and Add(Input_1, Input_1))
-	* String: Used as an auxiliary value within the Left, Right, and Substr operations. List of ints will not be modified (e.g. if the user specifies '1', it will not add to itself to feed '2' into the functions)
-	* Bitwise: Used as an auxiliary value within the LShift and RShift operations
+	
+ 	* String: Used as an auxiliary value within the Left, Right, and Substr operations. List of ints will not be modified (e.g. if the user specifies '1', it will not add to itself to feed '2' into the functions)
+	
+ 	* Bitwise: Used as an auxiliary value within the LShift and RShift operations
 
 **String Literals** (applicable only within String DSL): A list of base strings that will be fed into the program and treated with equal weight as the input strings. For example, if we set the string "foo" to be a string literal, the Concat operation would yield the following values in first-round generation: Concat("foo", "foo"), concat(Input_1, "foo"), Concat("foo", Input_1), Concat(Input_1, Input_1)
 
