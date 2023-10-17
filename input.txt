@@ -1,0 +1,5 @@
+Sample Inputs: [[6, 17], [19, 13], [12, 11]]
+Sample Outputs: [-72, -62, -47]
+Int Literals: [1, 2]
+String Literals: []
+Defined Grammar: ["RShift", "LShift", "And", "Xor", "Not"]
