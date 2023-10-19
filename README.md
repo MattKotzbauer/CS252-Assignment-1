@@ -129,7 +129,7 @@ LShift(And(Input_1, Input_2), 2)
 
 (.1 second)
 
-**Input: **
+**Input:**
 
 Sample Inputs: [[6, 17], [19, 13], [12, 11]]
 
