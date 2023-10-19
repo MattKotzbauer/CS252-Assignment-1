@@ -1,6 +1,6 @@
 
 
-CS252 Assignment 1: Bottom-Up Search
+**CS252r Assignment 1: Bottom-Up Search**
 
 For my Assignment 1, I implemented a flexible-grammar BUS within arithmetic, string, and bitwise DSL's. Starting with the function inputs and base values, it builds its search space by inserting the current functions into the specified grammars.
 
