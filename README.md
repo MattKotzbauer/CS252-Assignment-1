@@ -12,11 +12,11 @@ In input.txt, the user is prompted to configure five lists:
 
 **Int Literals** (applicable within all DSL's): The list of base ints that will be fed into the program. Performs the following functions within each DSL:
 
-	* Arithmetic: Fed as a base value into the list of functions, and will thus be applied with equal weights as the inputs themselves - for instance, if we pass an int literal 1 into the Add operation, our first round of generation will yield Add(1,1) (alongside Add(Input_1, 1) and Add(Input_1, Input_1))
+- Arithmetic: Fed as a base value into the list of functions, and will thus be applied with equal weights as the inputs themselves - for instance, if we pass an int literal 1 into the Add operation, our first round of generation will yield Add(1,1) (alongside Add(Input_1, 1) and Add(Input_1, Input_1))
 	
- 	* String: Used as an auxiliary value within the Left, Right, and Substr operations. List of ints will not be modified (e.g. if the user specifies '1', it will not add to itself to feed '2' into the functions)
+- String: Used as an auxiliary value within the Left, Right, and Substr operations. List of ints will not be modified (e.g. if the user specifies '1', it will not add to itself to feed '2' into the functions)
 	
- 	* Bitwise: Used as an auxiliary value within the LShift and RShift operations
+- Bitwise: Used as an auxiliary value within the LShift and RShift operations
 
 **String Literals** (applicable only within String DSL): A list of base strings that will be fed into the program and treated with equal weight as the input strings. For example, if we set the string "foo" to be a string literal, the Concat operation would yield the following values in first-round generation: Concat("foo", "foo"), concat(Input_1, "foo"), Concat("foo", Input_1), Concat(Input_1, Input_1)
 
@@ -29,15 +29,28 @@ Note that, while you can do string synthesis without defining string literals, y
 
 My code stores generated functions in a list for a couple of reasons: 
 
-	* The operations needed to synthesize new functions are lookup and appending, both of which are O(1) within a list
+- The operations needed to synthesize new functions are lookup and appending, both of which are O(1) within a list
 
-	* When pruning, the deletion operation occurs closer to the end of the list, as we prune newly-generated elements
+- When pruning, the deletion operation occurs closer to the end of the list, as we prune newly-generated elements
 
 A potential way to save on time complexity could be to re-define the 'Term' class to be hashable and then store it in a set, saving time on the deletion operation.
   
 
-
 Input / Output Examples (TODO): 
+
+
+Input: 
+
+Output: 
+
+Input: 
+
+Output: 
+
+Input: 
+
+Output: 
+
 
 Input:
 
