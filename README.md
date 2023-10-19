@@ -36,23 +36,77 @@ My code stores generated functions in a list for a couple of reasons:
 A potential way to save on time complexity could be to re-define the 'Term' class to be hashable and then store it in a set, saving time on the deletion operation.
   
 
-Input / Output Examples (TODO): 
+**Input / Output Examples:**
 
+**Input:**
 
-Input: 
+Sample Inputs: [["hello", "world"], ["hi", "universe"], ["hey", "cosmos"]]
 
-Output: 
+Sample Outputs: ["Hello WORLD!", "Hi UNIVERSE!", "Hey COSMOS!"]
 
-Input: 
+Int Literals: []
 
-Output: 
+String Literals: [" ", "!"]
 
-Input: 
+Defined Grammar: ["Concat", "Uppercase", "Propercase"]
 
-Output: 
+**Output:**
+Concat(Concat(Propercase(Input_1), " "), Concat(Uppercase(Input_2), "!"))
 
+(10 sec)
 
-Input:
+**Input:**
+Sample Inputs: [["even", "in"], ["silence", "there"], ["is", "chaos"]]
+
+Sample Outputs: ["eIN", "sRE", "iOS"]
+
+Int Literals: [1, 2]
+
+String Literals: [" ", "!"]
+
+Defined Grammar: ["Concat", "Uppercase", "Left", "Right"]
+
+**Output:**
+Concat(Left(Input_1, 1), Right(Uppercase(Input_2), 2))
+
+(15 sec) 
+
+**Input:**
+
+Sample Inputs: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+Sample Outputs: [9, 54, 135]
+
+Int Literals: [1, 2]
+
+String Literals: []     
+
+Defined Grammar: ["Add", "Sub", "Div", "Mult"]
+
+**Output:**
+
+Mult(Input_3, Add(Input_1, Input_2))
+
+(.2 sec)
+
+**Input:** 
+Sample Inputs: [[8, 2], [16, 3], [32, 3]]
+
+Sample Outputs: [6, 12, 15]
+
+Int Literals: [1, 2]
+
+String Literals: []     
+
+Defined Grammar: ["Mult", "Add", "Log"]
+
+**Output:**
+
+Mult(Input_2, Log(2, Input_1))
+
+(.1 sec)
+
+**Input:**
 
 Sample Inputs: [[6, 3], [12, 9]]
 
@@ -64,13 +118,13 @@ String Literals: []
 
 Defined Grammar: ["LShift", "And"]
 
-Output:
+**Output:**
 
 LShift(And(Input_1, Input_2), 2)
 
 (.1 second)
 
-Input: 
+**Input: **
 
 Sample Inputs: [[6, 17], [19, 13], [12, 11]]
 
@@ -82,7 +136,7 @@ String Literals: []
 
 Defined Grammar: ["RShift", "LShift", "And", "Xor", "Not"]
 
-Output: 
+**Output: **
 
 And(RShift(Not(Input_1), 1), Not(LShift(Input_2, 2)))
 

@@ -8,11 +8,15 @@ class Term:
 
 with open('input.txt', 'r') as f:
     lines = f.readlines()
+
+# Initializing global variables
 sample_inputs = None
 output_data = None
 available_ints = None
 available_strings = None
 defined_grammar = None
+
+# Reading file and extracting data into lists
 prefixes = ["Sample Inputs:", "Sample Outputs:", "Int Literals:", "String Literals:", "Defined Grammar:"]
 for line in lines:
     line = line.strip()  
@@ -73,6 +77,7 @@ LSHIFT = "LShift"
 RSHIFT = "RShift"
 bit_grammar = [AND, OR, XOR, NOT, LSHIFT, RSHIFT]
 
+# Recursively prints terms by iterating through class structure
 def print_term(term):
     def print_recursive(term, indent=0):
         if term.term_type in available_strings:
@@ -100,6 +105,7 @@ def print_term(term):
 class UnsupportedTermError(Exception):
     pass
 
+# Evaluates terms to a numerical or string value by recursively using class system
 def evaluate(term, input):
     
     if isinstance(term.term_type, int):
@@ -166,7 +172,10 @@ def evaluate(term, input):
             return term1
         return term1 % term2
     def log_eval(term, input):
-        return int(math.log(int(evaluate(term.args[0], input)), int(evaluate(term.args[1], input))))
+        term1, term2 = int(evaluate(term.args[0], input)), int(evaluate(term.args[1], input))
+        if (term1 == 1 or term1 <= 0) or (term2 <= 0):
+            return term1
+        return int(math.log(term2, term1))
     def pow_eval(term, input):
         return int(evaluate(term.args[0], input)) ** int(evaluate(term.args[1], input))
 
@@ -217,11 +226,18 @@ def evaluate(term, input):
     else:
         raise UnsupportedTermError(f"Unsupported term type: {term.term_type}")
 
-
+# Expands range of functions along specified grammar
 def expand(possible_fns):
     global available_ints
     possible_fns_length = len(possible_fns)
+    # Apply selected grammar to all applicable functions
     for i in range(possible_fns_length):
+        
+        '''
+        Iterates through current list of functions, applying defined grammar to each element.
+        For functions with multiple arguments, such as Concat, we iterate 
+        through each possible combination of arguments.
+        '''
         
         # String Manipulation Operations
         
@@ -243,6 +259,7 @@ def expand(possible_fns):
         # Integer Manipulation Operations
         
         for j in range(i, possible_fns_length):
+            # (As Add and Mult are commutative, we need only apply them in one order)
             possible_fns.append(Term(ADD, possible_fns[i], possible_fns[j])) if ADD in defined_grammar else None
             possible_fns.append(Term(MULT, possible_fns[i], possible_fns[j])) if MULT in defined_grammar else None
             for s in [SUB, DIV, MOD, LOG, POW]:
@@ -262,24 +279,35 @@ def expand(possible_fns):
 
 pruning_index = 0
 
+# Prunes obervationally equivalent functions
 def prune_equivalents(possible_fns):
     global pruning_index
     global matching_fn
     global complete
     i = pruning_index
     while i < len(possible_fns):
+        # Take outputs as a sequence of function results
         fn_outputs = []
         for j in range(len(sample_inputs)):
+            # Append function result to list
             fn_outputs.append(evaluate(possible_fns[i], sample_inputs[j]))
-        fn_outputs_tuple = tuple(fn_outputs)  # Convert to tuple
+            
+        # Convert to tuple to allow for set hashing
+        fn_outputs_tuple = tuple(fn_outputs)
+        
+        # If outputs already exist, prune function
         if fn_outputs_tuple in existing_outputs:
             del possible_fns[i]
+        
+        # If outputs match our target outputs, we've found our function!
         elif fn_outputs_tuple == tuple(sample_outputs) and not complete:
             matching_fn = possible_fns[i]
             complete = True
             return None
+        
+        # Otherwise, add as new existing output
         else:
-            existing_outputs.add(fn_outputs_tuple)  # Add as a tuple
+            existing_outputs.add(fn_outputs_tuple) 
             i += 1
             pruning_index += 1
     return possible_fns
@@ -288,7 +316,11 @@ def synthesize():
     global available_strings
     global defined_grammar
     global int_grammar
+    
+    # Initialize possible functions to empty list
     possible_fns = []
+    
+    # Append literals and inputs as base values
     for s in available_strings:
         possible_fns.append(Term(s))
     if all(fn in int_grammar for fn in defined_grammar):
@@ -296,19 +328,19 @@ def synthesize():
             possible_fns.append(Term(i))
     for input_var in input_vars:
         possible_fns.append(Term(input_var))
+    
     stepCount = 0
-    while(True):
+    # Loop through process of expanding and pruning
+    while(stepCount < 10):
         possible_fns = expand(possible_fns)
         possible_fns = prune_equivalents(possible_fns)
+        # Return the matching function if it's been identified
         if matching_fn:
             return possible_fns
         stepCount +=1
-        if stepCount > 10:
-            return "Term Limit Exceeded"
+    return "Term Limit Exceeded"
 
+# Call synthesizer function and print matching function if we find one!
 synth_fns = synthesize()
 print("Matching Fn:")
 print_term(matching_fn)
-
-
-    
