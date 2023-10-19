@@ -52,11 +52,13 @@ String Literals: [" ", "!"]
 Defined Grammar: ["Concat", "Uppercase", "Propercase"]
 
 **Output:**
+
 Concat(Concat(Propercase(Input_1), " "), Concat(Uppercase(Input_2), "!"))
 
 (10 sec)
 
 **Input:**
+
 Sample Inputs: [["even", "in"], ["silence", "there"], ["is", "chaos"]]
 
 Sample Outputs: ["eIN", "sRE", "iOS"]
@@ -68,6 +70,7 @@ String Literals: [" ", "!"]
 Defined Grammar: ["Concat", "Uppercase", "Left", "Right"]
 
 **Output:**
+
 Concat(Left(Input_1, 1), Right(Uppercase(Input_2), 2))
 
 (15 sec) 
@@ -91,6 +94,7 @@ Mult(Input_3, Add(Input_1, Input_2))
 (.2 sec)
 
 **Input:** 
+
 Sample Inputs: [[8, 2], [16, 3], [32, 3]]
 
 Sample Outputs: [6, 12, 15]
@@ -137,7 +141,7 @@ String Literals: []
 
 Defined Grammar: ["RShift", "LShift", "And", "Xor", "Not"]
 
-**Output: **
+**Output:**
 
 And(RShift(Not(Input_1), 1), Not(LShift(Input_2, 2)))
 
